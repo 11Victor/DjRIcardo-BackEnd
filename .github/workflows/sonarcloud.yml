@@ -8,11 +8,7 @@ on:
     branches:
       - main
       - development
-  pull_request:
-    branches:
-      - main
-      - development
-    
+          
 jobs:
   sonarcloud:
     runs-on: ubuntu-latest
