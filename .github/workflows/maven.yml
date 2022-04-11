@@ -5,7 +5,11 @@ name: Maven/AWS
 
 on:
   push:
-    branches: [ main ]
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
     
 jobs:  
   deploy-aws:
