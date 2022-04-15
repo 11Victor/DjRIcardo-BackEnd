@@ -6,7 +6,7 @@ name: Maven/AWS
 on:
   push:
     branches:
-      - main
+      
     
 jobs:  
   deploy-aws:
