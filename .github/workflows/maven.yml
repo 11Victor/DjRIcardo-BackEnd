@@ -22,4 +22,6 @@ jobs:
     - name: Build with Maven
       run: mvn -B package --file pom.xml
     - name: Execute Jar File
-      run: sudo pm2 restart dj & pm2 start 'sudo java -jar /home/ubuntu/actions-runner/_work/DjRIcardo-BackEnd/DjRIcardo-BackEnd/target/djricardo.jar' --name 'dj' & pm2 save &
+      run: sudo pm2 restart myApp
+      run: pm2 start 'sudo java -jar /home/ubuntu/actions-runner/_work/DjRIcardo-BackEnd/DjRIcardo-BackEnd/target/djricardo.jar' --name 'myApp'
+      run: pm2 save myApp
