@@ -49,7 +49,7 @@ jobs:
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=11Victor_DjRIcardo-BackEnd
   
   Docker:
-    needs: [Build, Sonarcloud]
+    needs: [Build, SonarQube]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
