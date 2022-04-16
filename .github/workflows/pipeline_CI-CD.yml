@@ -23,6 +23,7 @@ jobs:
       run: mvn clean install
   
   DockerHub:
+    runs-on: ubuntu-latest
     needs: [ Build ]
     steps:
     - uses: actions/checkout@v3
