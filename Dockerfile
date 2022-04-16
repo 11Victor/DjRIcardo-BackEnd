@@ -1,3 +1,3 @@
 FROM adoptopenjdk/openjdk11:alpine-jre
-ADD target/djricardo.jar app.jar
-ENTRYPOINT ["java","-jar","app.jar"]
+ADD target/djricardo.jar djricardo.jar
+ENTRYPOINT ["java","-jar","djricardo.jar"]
