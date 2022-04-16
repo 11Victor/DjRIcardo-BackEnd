@@ -8,10 +8,9 @@ on:
     branches: [ main ]
 
 jobs:
-  build:
-
+  
+  Build:
     runs-on: ubuntu-latest
-
     steps:
     - uses: actions/checkout@v3
     - name: Set up JDK 11
@@ -22,9 +21,15 @@ jobs:
         cache: maven
     - name: Build with Maven
       run: mvn clean install
+  
+  DockerHub:
+    needs: [ Build ]
+    steps:
+    - uses: actions/checkout@v3
+      name: Check out code
 
-    - name: Build & push Docker image
-      uses: mr-smithers-excellent/docker-build-push@v5
+    - uses: mr-smithers-excellent/docker-build-push@v5
+      name: Build & push Docker image
       with:
         image: 11victor/dj_ricardo
         tags: latest
