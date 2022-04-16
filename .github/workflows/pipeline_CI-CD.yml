@@ -27,10 +27,10 @@ jobs:
     needs: [ Build ]
     steps:
     - uses: actions/checkout@v3
-      name: Check out code
+    - name: Check out code
 
-    - uses: mr-smithers-excellent/docker-build-push@v5
-      name: Build & push Docker image
+    - name: Build & push Docker image
+      uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: 11victor/dj_ricardo
         tags: latest
