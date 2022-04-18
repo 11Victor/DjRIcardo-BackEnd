@@ -75,7 +75,7 @@ jobs:
   #       username: ${{ secrets.DOCKER_USERNAME }}
   #       password: ${{ secrets.DOCKER_PASSWORD }}
 
-  Deploy-AWS_ECS:
+  AWS_ECS:
     needs: [Build, SonarQube]
     runs-on: ubuntu-latest
     steps:
