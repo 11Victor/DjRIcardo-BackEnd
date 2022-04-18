@@ -51,7 +51,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=11Victor_DjRIcardo-BackEnd
   
-  DockerHub and AWS-ECR:
+  DockerHub:
     needs: [Build, SonarQube]
     runs-on: ubuntu-latest
     steps:
@@ -75,7 +75,7 @@ jobs:
         username: ${{ secrets.DOCKER_USERNAME }}
         password: ${{ secrets.DOCKER_PASSWORD }}
 
-    - name: 
+    - name: AWS ECR
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: djricardo
