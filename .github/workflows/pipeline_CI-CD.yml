@@ -1,8 +1,11 @@
 name: Pipeline CI/CD
 
 on:
-  push:
-    branches: [ main ]
+  workflow_dispatch:
+    inputs:
+      tags:
+        description: 'Version Image Docker'
+        required: true
 
 jobs:
   
@@ -66,7 +69,7 @@ jobs:
       uses: mr-smithers-excellent/docker-build-push@v5
       with:
         image: ${{ secrets.DOCKER_USERNAME }}/dj_ricardo
-        tags: latest,'v*'
+        tags: latest, ${{ github.event.inputs.tags }}
         registry: docker.io
         dockerfile: Dockerfile
         username: ${{ secrets.DOCKER_USERNAME }}
