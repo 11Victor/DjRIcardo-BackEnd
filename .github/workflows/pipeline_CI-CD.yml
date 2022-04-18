@@ -76,7 +76,7 @@ jobs:
   #       password: ${{ secrets.DOCKER_PASSWORD }}
 
   AWS-ECS:
-    needs: [Build, SonarQube]
+    # needs: [Build, SonarQube]
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
