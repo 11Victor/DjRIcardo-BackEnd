@@ -31,7 +31,7 @@ public class SwaggerConfig {
 	}
 
 	public static ApiInfo metadata() {
-		return new ApiInfoBuilder().title("Ricardo Alcantara - DJ")
+		return new ApiInfoBuilder().title("Ricardo Alcantara")
 				.description("Projeto API Spring - Portifólio").version("1.0.0").license("Apache License Version 2.0")
 				.licenseUrl("https://github.com/11Victor").contact(contact()).build();
 	}
