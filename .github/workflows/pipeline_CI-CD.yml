@@ -9,71 +9,71 @@ on:
 
 jobs:
   
-  Build:
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn clean install
+  # Build:
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Set up JDK 11
+  #     uses: actions/setup-java@v3
+  #     with:
+  #       java-version: '11'
+  #       distribution: 'temurin'
+  #       cache: maven
+  #   - name: Build with Maven
+  #     run: mvn clean install
   
-  SonarQube:
-    needs: Build
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v2
-        with:
-          fetch-depth: 0
-      - name: Set up JDK 11
-        uses: actions/setup-java@v1
-        with:
-          java-version: 11
-      - name: Cache SonarCloud packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
-      - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
-      - name: Build and analyze
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=11Victor_DjRIcardo-BackEnd
+  # SonarQube:
+  #   needs: Build
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v2
+  #       with:
+  #         fetch-depth: 0
+  #     - name: Set up JDK 11
+  #       uses: actions/setup-java@v1
+  #       with:
+  #         java-version: 11
+  #     - name: Cache SonarCloud packages
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ~/.sonar/cache
+  #         key: ${{ runner.os }}-sonar
+  #         restore-keys: ${{ runner.os }}-sonar
+  #     - name: Cache Maven packages
+  #       uses: actions/cache@v1
+  #       with:
+  #         path: ~/.m2
+  #         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+  #         restore-keys: ${{ runner.os }}-m2
+  #     - name: Build and analyze
+  #       env:
+  #         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  #         SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  #       run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=11Victor_DjRIcardo-BackEnd
   
-  DockerHub:
-    needs: [Build, SonarQube]
-    runs-on: ubuntu-latest
-    steps:
-    - uses: actions/checkout@v3
-    - name: Set up JDK 11
-      uses: actions/setup-java@v3
-      with:
-        java-version: '11'
-        distribution: 'temurin'
-        cache: maven
-    - name: Build with Maven
-      run: mvn clean install
+  # DockerHub:
+  #   needs: [Build, SonarQube]
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #   - uses: actions/checkout@v3
+  #   - name: Set up JDK 11
+  #     uses: actions/setup-java@v3
+  #     with:
+  #       java-version: '11'
+  #       distribution: 'temurin'
+  #       cache: maven
+  #   - name: Build with Maven
+  #     run: mvn clean install
 
-    - name: Build & push Docker image - DockerHub
-      uses: mr-smithers-excellent/docker-build-push@v5
-      with:
-        image: ${{ secrets.DOCKER_USERNAME }}/dj_ricardo
-        tags: latest, ${{ github.event.inputs.tags }}
-        registry: docker.io
-        dockerfile: Dockerfile
-        username: ${{ secrets.DOCKER_USERNAME }}
-        password: ${{ secrets.DOCKER_PASSWORD }}
+  #   - name: Build & push Docker image - DockerHub
+  #     uses: mr-smithers-excellent/docker-build-push@v5
+  #     with:
+  #       image: ${{ secrets.DOCKER_USERNAME }}/dj_ricardo
+  #       tags: latest, ${{ github.event.inputs.tags }}
+  #       registry: docker.io
+  #       dockerfile: Dockerfile
+  #       username: ${{ secrets.DOCKER_USERNAME }}
+  #       password: ${{ secrets.DOCKER_PASSWORD }}
 
   Deploy-AWS_ECS:
     needs: [Build, SonarQube]
